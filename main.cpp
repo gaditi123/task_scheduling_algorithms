@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
+#include "fcfs.h"
 
 using namespace std;
 
 int main()
 {
-
     cout << "Task Scheduling Algorithms!n\n";
 
     int numberOfProcesses;
@@ -14,8 +14,6 @@ int main()
     vector<int> processID(numberOfProcesses);
     vector<int> arrivalTime(numberOfProcesses);
     vector<int> burstTime(numberOfProcesses);
-    vector<int> waitingTime(numberOfProcesses);
-    vector<int> turnAroundTime(numberOfProcesses);
 
     for (int i = 0; i < numberOfProcesses; i++)
     {
@@ -26,7 +24,21 @@ int main()
         cin >> burstTime[i];
     }
 
-    cout<<"\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
+// Changing the arrival time of different processes
+    int a=arrivalTime[0];
+ 	int i;
+ 	for(i=0;i<numberOfProcesses;i++){
+ 		if(arrivalTime[i]<a)
+ 			a=arrivalTime[i];
+	 }
+	 if(a!=0){
+	 	for(i=0;i<numberOfProcesses;i++)
+	 		arrivalTime[i]=arrivalTime[i]-a;
+	 }
 
-    return 0;
+     fcfs_function(numberOfProcesses, arrivalTime,burstTime);
+
+     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
+
+     return 0;
 }
