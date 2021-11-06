@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "fcfs.h"
+#include "sjf.h"
 
 using namespace std;
 
@@ -37,6 +38,7 @@ int main()
 	 }
 
      fcfs_function(numberOfProcesses, arrivalTime,burstTime);
+     sjf_function(numberOfProcesses, processID, arrivalTime, burstTime);
 
      cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 

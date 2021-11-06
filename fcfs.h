@@ -7,7 +7,6 @@ using namespace std;
 // List prototypes of all functions in B.c here: 
 void fcfs_function(int numberOfProcesses,  vector<int> arrivalTime, vector<int>burstTime)
 {
-    vector<int> processID(numberOfProcesses);
     vector<int> waitingTime(numberOfProcesses);
     vector<int> turnAroundTime(numberOfProcesses);
     float averageWaitingTime,averageTurnAroundTime;
@@ -25,13 +24,16 @@ void fcfs_function(int numberOfProcesses,  vector<int> arrivalTime, vector<int>b
     }
     averageTurnAroundTime/=numberOfProcesses;
     averageWaitingTime/=numberOfProcesses;
+
+    printf("\nFirst Come First Serve\n");
+
     printf("SR.\tA.T.\tB.T.\tW.T.\tT.A.T.\n");
     for(i=0;i<numberOfProcesses;i++)
     {
     printf("%3d\t%3d\t%3d\t%3d\t%4d\n",i+1,arrivalTime[i],burstTime[i],waitingTime[i],turnAroundTime[i]);
     }
 
-    printf("Average Waiting Time: %f\nAverage Turn Around Time:%f",averageWaitingTime,averageTurnAroundTime);
+    printf("Average Waiting Time: %f\nAverage Turn Around Time:%f\n",averageWaitingTime,averageTurnAroundTime);
 }
  
 // End include guard: 
