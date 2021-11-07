@@ -62,7 +62,8 @@ void sjrf_function(vector<Process> processes, int numberOfProcesses)
 	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
 	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
+	int numberOfContextSwitches = processes.size() - 1;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
+	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime,numberOfContextSwitches);
 }
 #endif

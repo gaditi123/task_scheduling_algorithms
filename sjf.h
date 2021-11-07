@@ -55,14 +55,15 @@ void sjf_function(vector<Process> processes, int numberOfProcesses)
 		processes[i].setResponseTime(processes[i].getCompletionTime() - processes[i].getBurstTime() - processes[i].getArrivalTime());
 		averageWaitingTime += processes[i].getWaitingTime();
 		averageTurnAroundTime += processes[i].getTurnAroundTime();
-		averageResponseTime = averageResponseTime + processes[i].getResponseTime();
+		averageResponseTime += processes[i].getResponseTime();
 	}
 
 	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
 	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
+	int numberOfContextSwitches = processes.size() - 1;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
+	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime,numberOfContextSwitches);
 }
 
 #endif

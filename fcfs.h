@@ -26,14 +26,15 @@ void fcfs_function(vector<Process> processes, int numberOfProcesses)
 		previousProcessEndingTime = processes[i].getCompletionTime();
 		averageWaitingTime += processes[i].getWaitingTime();
 		averageTurnAroundTime += processes[i].getTurnAroundTime();
-		averageResponseTime = averageResponseTime + processes[i].getResponseTime();
+		averageResponseTime += processes[i].getResponseTime();
 	}
 
 	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
 	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
+	int numberOfContextSwitches = processes.size() - 1;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
+	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime,numberOfContextSwitches);
 }
 
 #endif

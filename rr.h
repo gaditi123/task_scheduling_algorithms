@@ -95,7 +95,12 @@ void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuant
     averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
+    int totalBurstTime = 0, numberOfContextSwitches = 0;
+    for (int i = 0; i < numberOfProcesses;i++)
+        totalBurstTime += processes[i].burstTime;
+    numberOfContextSwitches = ceil(totalBurstTime / timeQuantum) - 1;
+    
+    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime, numberOfContextSwitches);
 }
 
 #endif
