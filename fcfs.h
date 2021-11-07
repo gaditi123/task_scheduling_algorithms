@@ -1,35 +1,39 @@
-// "Include guard" prevents multiple inclusion: 
 #ifndef FCFS_H
 #define FCFS_H
-#include <bits/stdc++.h>
 #include "main.h"
-using namespace std;
+#include <bits/stdc++.h>
 
+using namespace std;
 
 void fcfs_function(vector<Process> processes, int numberOfProcesses)
 {
-    cout<<"\n\t*** FCFS ***\n";
+	cout << "\n\t*** First Come First Served ***\n";
 
-    float avgWaitTime=0, avgTurnAroundTime=0;
+	float averageWaitingTime = 0, averageTurnAroundTime = 0, averageResponseTime = 0;
 
-    sort(processes.begin(), processes.end(), compareByArrival); // Sorting the processes according to Arrival Time
+	// Sorting the processes according to Arrival Time
+	sort(processes.begin(), processes.end(), compareByArrival);
 
-	for(int i = 0, prevEnd =0 ;i < numberOfProcesses; i++){
-		processes[i].setCompletionTime(max(prevEnd, processes[i].getArrivalTime()) + processes[i].getBurstTime());
+	int currentTime = processes[0].getArrivalTime(), previousProcessEndingTime = 0;
+
+	for (int i = 0; i < numberOfProcesses; i++)
+	{
+		processes[i].setCompletionTime(max(previousProcessEndingTime, processes[i].getArrivalTime()) + processes[i].getBurstTime());
 		processes[i].setTurnAroundTime(processes[i].getCompletionTime() - processes[i].getArrivalTime());
 		processes[i].setWaitingTime(processes[i].getTurnAroundTime() - processes[i].getBurstTime());
-    processes[i].setResponseTime(processes[i].getCompletionTime() - processes[i].getBurstTime() - processes[i].getArrivalTime());
-    prevEnd = processes[i].getCompletionTime();
-
-		avgWaitTime+=processes[i].getWaitingTime();
-		avgTurnAroundTime+=processes[i].getTurnAroundTime();
+		processes[i].setResponseTime(currentTime - processes[i].getArrivalTime());
+		currentTime = currentTime + processes[i].getBurstTime();
+		previousProcessEndingTime = processes[i].getCompletionTime();
+		averageWaitingTime += processes[i].getWaitingTime();
+		averageTurnAroundTime += processes[i].getTurnAroundTime();
+		averageResponseTime = averageResponseTime + processes[i].getResponseTime();
 	}
 
-	avgWaitTime = (float)avgWaitTime/numberOfProcesses;
-	avgTurnAroundTime = (float)avgTurnAroundTime/numberOfProcesses;
+	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
+	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
+    averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
-    display(processes,numberOfProcesses,avgWaitTime,avgTurnAroundTime);
+    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
 }
- 
-// End include guard: 
-#endif 
+
+#endif
