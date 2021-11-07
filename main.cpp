@@ -4,6 +4,8 @@
 #include "sjrf.h"
 #include "rr.h"
 #include "ambrr.h"
+#include "isbrr.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -37,6 +39,7 @@ int main()
     sjrf_function(processes, numberOfProcesses);
     rr_function(processes, numberOfProcesses, timeQuantum);
     ambrr_function(processes, numberOfProcesses);
+    isbrr_function(processes, numberOfProcesses);
     
     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 
