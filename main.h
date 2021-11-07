@@ -99,7 +99,7 @@ bool compareById(Process p, Process q)
     return p.getId() < q.getId();
 }
 
-void display(vector<Process> processes, int numberOfProcesses, float averageWaitingTime = 0, float averageTurnAroundTime = 0, float averageResponseTime = 0, int numberOfContextSwitches=0)
+void display(vector<Process> processes, int numberOfProcesses, float averageWaitingTime = 0, float averageTurnAroundTime = 0, float averageResponseTime = 0, int numberOfContextSwitches = 0)
 {
     // Sort processes according to ID for ease of displaying
     sort(processes.begin(), processes.end(), compareById);
