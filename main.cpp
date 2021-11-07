@@ -27,6 +27,7 @@ int main()
     }
 
     fcfs_function(processes, numberOfProcesses);
+    sjf_function(processes, numberOfProcesses);
 
     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 

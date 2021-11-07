@@ -1,88 +1,58 @@
-// "Include guard" prevents multiple inclusion: 
 #ifndef SJF_H
 #define SJF_H
 #include <bits/stdc++.h>
+#include "main.h"
 using namespace std;
 
-void sjf_function(int numberOfProcesses,  vector<int>processID, vector<int> arrivalTime, vector<int>burstTime)
+void sjf_function(vector<Process> processes, int numberOfProcesses)
 {
-    vector<int> waitingTime(numberOfProcesses);
-    vector<int> turnAroundTime(numberOfProcesses);
-    float averageWaitingTime,averageTurnAroundTime;
+   	cout<<"\n\t*** SJF ***\n";
 
-   	float wavg=0,tavg=0,tsum=0,wsum=0;
- 	int i,j,temp,sum=0,ta=0;
-	 for(i=0;i<numberOfProcesses;i++)
-	{
-		for(j=0;j<numberOfProcesses;j++)
-		{
-		if(arrivalTime[i]<arrivalTime[j])
-		{
-		temp=processID[j];
-		processID[j]=processID[i];
-		processID[i]=temp;
+	int executedCount = 0;
+    vector<bool> processActive(numberOfProcesses, false);
+	vector <Process> processInQueue;
+	map<int, int> id_complete;
+	for(int time = 0; executedCount<numberOfProcesses;) {
+        
+		for(int i=0; i<numberOfProcesses; i++) {
+			if(!processActive[processes[i].getId()-1] && processes[i].getArrivalTime()<=time){ 		//To check if process is executed before and also whether it has arrived or not
+				processInQueue.push_back(processes[i]);				// Pushed to Process Arrived Vector
+				processActive[processes[i].getId()-1] = true;
+			}
+		}
 
-		temp=arrivalTime[j];
-		arrivalTime[j]=arrivalTime[i];
-		arrivalTime[i]=temp;
+		if(processInQueue.size()!=0) {
+			vector<Process>::iterator minPosition = min_element(processInQueue.begin(),
+			processInQueue.end(), compareByBurst);
+			Process processMinBurstTime = *minPosition;
+			time += processMinBurstTime.getBurstTime();
+			id_complete[processMinBurstTime.getId()] = time;
+			executedCount++;
+			processInQueue.erase(minPosition);
 
-		temp=burstTime[j];
-		burstTime[j]=burstTime[i];
-		burstTime[i]=temp;
+		} 
+        
+        else {
+			time++;
 		}
 	}
-}
 
-int btime=0,min,k=1;
-for(j=0;j<numberOfProcesses;j++)
-{
-    btime=btime+burstTime[j];
-    min=burstTime[k];
-    for(i=k;i<numberOfProcesses;i++){
-        if (btime>=arrivalTime[i] && burstTime[i]<min)
-        {
-            temp=processID[k];
-            processID[k]=processID[i];
-            processID[i]=temp;
-            temp=arrivalTime[k];
-            arrivalTime[k]=arrivalTime[i];
-            arrivalTime[i]=temp;
-            temp=burstTime[k];
-            burstTime[k]=burstTime[i];
-            burstTime[i]=temp;
-        }
-    }
-    k++;
-}
-waitingTime[0]=0;
-for(i=1;i<numberOfProcesses;i++)
-{
-    sum=sum+burstTime[i-1];
-    waitingTime[i]=sum-arrivalTime[i];
-    wsum=wsum+waitingTime[i];
-}
+	float avgWaitTime=0, avgTurnAroundTime=0;
 
-averageWaitingTime=(wsum/numberOfProcesses);
+	for (int i = 0; i < numberOfProcesses; i++)
+	{
+		processes[i].setCompletionTime(id_complete[processes[i].getId()]);
+		processes[i].setTurnAroundTime(processes[i].getCompletionTime() - processes[i].getArrivalTime());
+		processes[i].setWaitingTime(processes[i].getTurnAroundTime() - processes[i].getBurstTime());
+        processes[i].setResponseTime(processes[i].getCompletionTime() - processes[i].getBurstTime() - processes[i].getArrivalTime());
+		avgWaitTime+=processes[i].getWaitingTime();
+		avgTurnAroundTime+=processes[i].getTurnAroundTime();
+	}
 
-for(i=0;i<numberOfProcesses;i++)
-{
-    ta=ta+burstTime[i];
-    turnAroundTime[i]=ta-arrivalTime[i];
-    tsum=tsum+turnAroundTime[i];
-}
+    avgWaitTime = (float)avgWaitTime/numberOfProcesses;
+	avgTurnAroundTime = (float)avgTurnAroundTime/numberOfProcesses;
 
-averageTurnAroundTime=(tsum/numberOfProcesses);
-
-printf("\nShortest Job First\n");
-
-printf("SR.\tA.T.\tB.T.\tW.T.\tT.A.T.\n");
-    for(i=0;i<numberOfProcesses;i++){
-    printf("%3d\t%3d\t%3d\t%3d\t%4d\n",i+1,arrivalTime[i],burstTime[i],waitingTime[i],turnAroundTime[i]);
-    }
-
-
-printf("Average Waiting Time: %f\nAverage Turn Around Time:%f\n",averageWaitingTime,averageTurnAroundTime);
+    display(processes,numberOfProcesses,avgWaitTime,avgTurnAroundTime);
 }
  
-// End include guard: 
 #endif 

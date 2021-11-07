@@ -5,10 +5,6 @@
 #include "main.h"
 using namespace std;
 
-// bool compareByArrival(Process p, Process q)
-// {
-//     return p.getArrivalTime() < q.getArrivalTime();
-// }
 
 void fcfs_function(vector<Process> processes, int numberOfProcesses)
 {
@@ -22,7 +18,8 @@ void fcfs_function(vector<Process> processes, int numberOfProcesses)
 		processes[i].setCompletionTime(max(prevEnd, processes[i].getArrivalTime()) + processes[i].getBurstTime());
 		processes[i].setTurnAroundTime(processes[i].getCompletionTime() - processes[i].getArrivalTime());
 		processes[i].setWaitingTime(processes[i].getTurnAroundTime() - processes[i].getBurstTime());
-		prevEnd = processes[i].getCompletionTime();
+    processes[i].setResponseTime(processes[i].getCompletionTime() - processes[i].getBurstTime() - processes[i].getArrivalTime());
+    prevEnd = processes[i].getCompletionTime();
 
 		avgWaitTime+=processes[i].getWaitingTime();
 		avgTurnAroundTime+=processes[i].getTurnAroundTime();
