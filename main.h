@@ -99,17 +99,20 @@ bool compareById(Process p, Process q)
     return p.getId() < q.getId();
 }
 
-void display(vector<Process> processes, int numberOfProcesses, float averageWaitingTime = 0, float averageTurnAroundTime = 0)
+void display(vector<Process> processes, int numberOfProcesses, float averageWaitingTime = 0, float averageTurnAroundTime = 0, float averageResponseTime = 0)
 {
+    // Sort processes according to ID for ease of displaying
     sort(processes.begin(), processes.end(), compareById);
+
     cout << "ID\tArrival Time\tBurst Time\tCompletion Time\tTurn Around Time\tWaiting Time\tResponse Time";
     for (int i = 0; i < numberOfProcesses; i++)
         cout << "\n"
              << processes[i].getId() << "\t\t" << processes[i].getArrivalTime() << "\t\t" << processes[i].getBurstTime() << "\t\t"
              << processes[i].getCompletionTime() << "\t\t" << processes[i].getTurnAroundTime() << "\t\t" << processes[i].getWaitingTime() << "\t\t" << processes[i].getResponseTime();
-    cout << "\n\n\t\tAverage Waiting Time: " << averageWaitingTime;
-    cout << "\n\t\tAverage Turn Around Time: " << averageTurnAroundTime;
-    cout << "\n\n\n";
+    cout << "\n\n\tAverage Waiting Time: " << averageWaitingTime;
+    cout << "\n\tAverage Turn Around Time: " << averageTurnAroundTime;
+    cout << "\n\tAverage Response Time: " << averageResponseTime;
+    cout << "\n\n";
 }
 
 #endif

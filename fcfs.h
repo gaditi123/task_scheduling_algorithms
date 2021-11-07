@@ -9,7 +9,7 @@ void fcfs_function(vector<Process> processes, int numberOfProcesses)
 {
 	cout << "\n\t*** First Come First Served ***\n";
 
-	float averageWaitingTime = 0, averageTurnAroundTime = 0;
+	float averageWaitingTime = 0, averageTurnAroundTime = 0, averageResponseTime = 0;
 
 	// Sorting the processes according to Arrival Time
 	sort(processes.begin(), processes.end(), compareByArrival);
@@ -26,12 +26,14 @@ void fcfs_function(vector<Process> processes, int numberOfProcesses)
 		previousProcessEndingTime = processes[i].getCompletionTime();
 		averageWaitingTime += processes[i].getWaitingTime();
 		averageTurnAroundTime += processes[i].getTurnAroundTime();
+		averageResponseTime = averageResponseTime + processes[i].getResponseTime();
 	}
 
 	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
 	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
+    averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
-	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime);
+    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
 }
 
 #endif

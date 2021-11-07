@@ -42,7 +42,6 @@ void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuant
                 currentProcess.setVisited();
                 processes[currentProcess.getId() - 1].setResponseTime(currentTime - currentProcess.getArrivalTime());
                 processes[currentProcess.getId() - 1].setVisited();
-                printf("Process %d: %d\n", currentProcess.getId(), currentProcess.getResponseTime());
             }
 
             int usedQuanta = min(timeQuantum, currentProcess.getBurstTime());
@@ -80,21 +79,23 @@ void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuant
         }
     } while (processesCompleted != numberOfProcesses);
 
-    float averageWaitingTime = 0, averageTurnAroundTime = 0;
+    float averageWaitingTime = 0, averageTurnAroundTime = 0, averageResponseTime = 0;
 
     for (int i = 0; i < numberOfProcesses; i++)
     {
         processes[i].setCompletionTime(store[processes[i].getId()]);
         processes[i].setTurnAroundTime(processes[i].getCompletionTime() - processes[i].getArrivalTime());
         processes[i].setWaitingTime(processes[i].getTurnAroundTime() - processes[i].getBurstTime());
-        averageWaitingTime += processes[i].getWaitingTime();
-        averageTurnAroundTime += processes[i].getTurnAroundTime();
+        averageWaitingTime = averageWaitingTime + processes[i].getWaitingTime();
+        averageTurnAroundTime = averageTurnAroundTime + processes[i].getTurnAroundTime();
+        averageResponseTime = averageResponseTime + processes[i].getResponseTime();
     }
 
     averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
     averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
+    averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime);
+    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
 }
 
 #endif
