@@ -4,7 +4,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// List prototypes of all functions in B.c here: 
 void sjf_function(int numberOfProcesses,  vector<int>processID, vector<int> arrivalTime, vector<int>burstTime)
 {
     vector<int> waitingTime(numberOfProcesses);

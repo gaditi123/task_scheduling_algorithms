@@ -2,38 +2,36 @@
 #ifndef FCFS_H
 #define FCFS_H
 #include <bits/stdc++.h>
+#include "main.h"
 using namespace std;
 
-// List prototypes of all functions in B.c here: 
-void fcfs_function(int numberOfProcesses,  vector<int> arrivalTime, vector<int>burstTime)
+// bool compareByArrival(Process p, Process q)
+// {
+//     return p.getArrivalTime() < q.getArrivalTime();
+// }
+
+void fcfs_function(vector<Process> processes, int numberOfProcesses)
 {
-    vector<int> waitingTime(numberOfProcesses);
-    vector<int> turnAroundTime(numberOfProcesses);
-    float averageWaitingTime,averageTurnAroundTime;
+    cout<<"\n\t*** FCFS ***\n";
 
-    waitingTime[0]=0;
-    averageTurnAroundTime=turnAroundTime[0]=burstTime[0];
-    int btt=burstTime[0];
-    int i;
-    for(i=1;i<numberOfProcesses;i++){
-      waitingTime[i]=btt-arrivalTime[i];
-      btt+=burstTime[i];
-      averageWaitingTime+=waitingTime[i];
-      turnAroundTime[i]= waitingTime[i]+burstTime[i];
-      averageTurnAroundTime+=turnAroundTime[i];
-    }
-    averageTurnAroundTime/=numberOfProcesses;
-    averageWaitingTime/=numberOfProcesses;
+    float avgWaitTime=0, avgTurnAroundTime=0;
 
-    printf("\nFirst Come First Serve\n");
+    sort(processes.begin(), processes.end(), compareByArrival); // Sorting the processes according to Arrival Time
 
-    printf("SR.\tA.T.\tB.T.\tW.T.\tT.A.T.\n");
-    for(i=0;i<numberOfProcesses;i++)
-    {
-    printf("%3d\t%3d\t%3d\t%3d\t%4d\n",i+1,arrivalTime[i],burstTime[i],waitingTime[i],turnAroundTime[i]);
-    }
+	for(int i = 0, prevEnd =0 ;i < numberOfProcesses; i++){
+		processes[i].setCompletionTime(max(prevEnd, processes[i].getArrivalTime()) + processes[i].getBurstTime());
+		processes[i].setTurnAroundTime(processes[i].getCompletionTime() - processes[i].getArrivalTime());
+		processes[i].setWaitingTime(processes[i].getTurnAroundTime() - processes[i].getBurstTime());
+		prevEnd = processes[i].getCompletionTime();
 
-    printf("Average Waiting Time: %f\nAverage Turn Around Time:%f\n",averageWaitingTime,averageTurnAroundTime);
+		avgWaitTime+=processes[i].getWaitingTime();
+		avgTurnAroundTime+=processes[i].getTurnAroundTime();
+	}
+
+	avgWaitTime = (float)avgWaitTime/numberOfProcesses;
+	avgTurnAroundTime = (float)avgTurnAroundTime/numberOfProcesses;
+
+    display(processes,numberOfProcesses,avgWaitTime,avgTurnAroundTime);
 }
  
 // End include guard: 

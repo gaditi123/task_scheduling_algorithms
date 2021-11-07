@@ -1,105 +1,9 @@
 #include <bits/stdc++.h>
 #include "fcfs.h"
 #include "sjf.h"
-#include "rr.h"
+#include "main.h"
 
 using namespace std;
-
-class Process
-{
-private:
-    bool visited = false;
-    int id;
-    int burstTime;
-    int arrivalTime;
-    int completionTime;
-    int turnAroundTime;
-    int waitingTime;
-    int responseTime;
-
-public:
-    bool isVisited()
-    {
-        return visited;
-    }
-    int getId()
-    {
-        return id;
-    }
-    int getBurstTime()
-    {
-        return burstTime;
-    }
-    int getArrivalTime()
-    {
-        return arrivalTime;
-    }
-    int getCompletionTime()
-    {
-        return completionTime;
-    }
-    int getTurnAroundTime()
-    {
-        return turnAroundTime;
-    }
-    int getWaitingTime()
-    {
-        return waitingTime;
-    }
-    int getResponseTime()
-    {
-        return responseTime;
-    }
-    void setVisited()
-    {
-        this->visited = true;
-    }
-    void setId(int id)
-    {
-        this->id = id;
-    }
-    void setBurstTime(int burstTime)
-    {
-        this->burstTime = burstTime;
-    }
-    void setArrivalTime(int arrivalTime)
-    {
-        this->arrivalTime = arrivalTime;
-    }
-    void setCompletionTime(int completionTime)
-    {
-        this->completionTime = completionTime;
-    }
-    void setTurnAroundTime(int turnAroundTime)
-    {
-        this->turnAroundTime = turnAroundTime;
-    }
-    void setWaitingTime(int waitingTime)
-    {
-        this->waitingTime = waitingTime;
-    }
-    void setResponseTime(int responseTime)
-    {
-        this->responseTime = responseTime;
-    }
-};
-
-// Utility Functions
-
-bool compareByArrival(Process p, Process q)
-{
-    return p.getArrivalTime() < q.getArrivalTime();
-}
-
-bool compareByBurst(Process p, Process q)
-{
-    return p.getBurstTime() < q.getBurstTime();
-}
-
-bool compareById(Process p, Process q)
-{
-    return p.getId() < q.getId();
-}
 
 int main()
 {
@@ -121,6 +25,8 @@ int main()
         cin >> tempInput;
         processes[i].setBurstTime(tempInput);
     }
+
+    fcfs_function(processes, numberOfProcesses);
 
     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 
