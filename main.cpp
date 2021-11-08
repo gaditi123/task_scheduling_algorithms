@@ -4,6 +4,7 @@
 #include "sjrf.h"
 #include "rr.h"
 #include "ambrr.h"
+#include "an.h"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -32,11 +33,23 @@ int main()
     cout << "\nEnter the Time Quantum for Round Robin Algorithm:\n";
     cin >> timeQuantum;
 
+    // First Come First Served
     fcfs_function(processes, numberOfProcesses);
+    
+    // Shortest Job First
     sjf_function(processes, numberOfProcesses);
+
+    // Shortest Job Remaining First
     sjrf_function(processes, numberOfProcesses);
+
+    // Round Robin
     rr_function(processes, numberOfProcesses, timeQuantum);
+
+    // Alternating Median Based Round Robin
     ambrr_function(processes, numberOfProcesses);
+
+    // AN Algorithm
+    an_function(processes, numberOfProcesses);
     
     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 
