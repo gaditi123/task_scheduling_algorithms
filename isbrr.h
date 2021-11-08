@@ -20,14 +20,9 @@ int time_quantum(vector<Process> processes, int numberOfProcesses){
 void isbrr_function(vector<Process> processes, int numberOfProcesses)
 {
 	cout<<"\n\t*** Improved Shortest Remaining Burst Round Robin ***\n";
-	int time = 0;
-    int tmp=0;
-    int temp=0;
-    int executedCount = 0;
-	float avgTurnAroundTime = 0;
-    float avgWaitTime = 0;
-    float avgResponseTime =0;
-    int context_count =0;
+	int time = 0, tmp=0, temp=0, executedCount = 0, context_count =0;
+	float avgTurnAroundTime = 0, avgWaitTime = 0, avgResponseTime =0;
+
 	vector <Process> processInQueue;
     vector<bool> inQueue(numberOfProcesses, false);
 	map<int,int> pid_complete;
@@ -59,20 +54,19 @@ void isbrr_function(vector<Process> processes, int numberOfProcesses)
 				pid_complete[(*minPosition).getId()]=time;
 				executedCount++;
 				processInQueue.erase(minPosition);
-                //context_count++;
 			}
 			if((*minPosition).getBurstTime()<=temp){
                 time=time+(*minPosition).getBurstTime();
                 pid_complete[(*minPosition).getId()]=time;
 				executedCount++;
 				processInQueue.erase(minPosition);
-                //context_count++;
             }
             else{
                 time = time + temp;
                 (*minPosition).setBurstTime((*minPosition).getBurstTime() - temp);
                 temp = (*minPosition).getBurstTime() - temp;
             }
+            context_count++;
         }
         else {
             time++;
