@@ -5,6 +5,9 @@
 #include "rr.h"
 #include "ambrr.h"
 #include "an.h"
+#include "isbrr.h"
+#include "mbrr.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -50,6 +53,12 @@ int main()
 
     // AN Algorithm
     an_function(processes, numberOfProcesses);
+
+    // Improved Shortest Remaining Burst Round Robin
+    isbrr_function(processes, numberOfProcesses);
+
+    // Modulus Based Round Robin
+    mbrr_function(processes, numberOfProcesses);
     
     cout << "\nMade with <3 by Aditi (B19EE003), Darshit (B19EE024), and Harsh (B19EE036)";
 
