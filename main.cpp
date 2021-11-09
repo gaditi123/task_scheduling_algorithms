@@ -1,12 +1,12 @@
-#include "main.h"
-#include "fcfs.h"
-#include "sjf.h"
-#include "sjrf.h"
-#include "rr.h"
-#include "ambrr.h"
-#include "an.h"
-#include "isbrr.h"
-#include "mbrr.h"
+#include "./scheduing algorithms/main.h"
+#include "./scheduing algorithms/fcfs.h"
+#include "./scheduing algorithms/sjf.h"
+#include "./scheduing algorithms/sjrf.h"
+#include "./scheduing algorithms/rr.h"
+#include "./scheduing algorithms/ambrr.h"
+#include "./scheduing algorithms/an.h"
+#include "./scheduing algorithms/isbrr.h"
+#include "./scheduing algorithms/mbrr.h"
 
 #include <bits/stdc++.h>
 

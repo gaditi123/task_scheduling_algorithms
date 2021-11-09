@@ -1,6 +1,7 @@
 #ifndef FCFS_H
 #define FCFS_H
-#include "main.h"
+#include "./main.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;

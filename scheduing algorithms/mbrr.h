@@ -1,39 +1,48 @@
-#ifndef AMBRR_H
-#define AMBRR_H
-#include "main.h"
+#ifndef MBRR_H
+#define MBRR_H
+#include "./main.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int findMedian(vector<Process> processes)
+int modulusTimeQuantum(int numberOfProcesses, vector<Process> processes)
 {
-    int n = processes.size();
-    if (n % 2 != 0)
+    int timeQuantum = 0;
+    float avgBurst = 0, medianBurst = 0;
+    for (int i = 0; i < numberOfProcesses; i++)
     {
-        return processes[n / 2].getBurstTime();
+        avgBurst += processes[i].burstTime;
     }
-    int index = n / 2;
-    float res = processes[index].getBurstTime() + processes[index - 1].getBurstTime();
-    res = res / 2;
-    return ceil(res);
+    avgBurst = (float)avgBurst / numberOfProcesses;
+    vector<Process> temp = processes;
+    sort(temp.begin(), temp.end(), compareByBurst);
+    if (numberOfProcesses % 2 != 0)
+    {
+        int median = ceil(numberOfProcesses / 2);
+        medianBurst = processes[median].burstTime;
+    }
+    else
+    {
+        int median = numberOfProcesses / 2;
+        medianBurst = (float)(processes[median].burstTime + processes[median + 1].burstTime) / 2;
+    }
+
+    timeQuantum = sqrt((pow(avgBurst, 2) + pow(medianBurst, 2)) / 2);
+
+    return timeQuantum;
 }
 
-int findDifference(vector<Process> processes)
-{
-    int n = processes.size();
-    return (processes[n - 1].getBurstTime() - findMedian(processes));
-}
-
-void ambrr_function(vector<Process> processes, int numberOfProcesses)
+void mbrr_function(vector<Process> processes, int numberOfProcesses)
 {
 
-    cout << "\n\t*** Alternating Median Based Round Robin ***\n";
+    cout << "\n\t*** Modulus Based Round Robin ***\n";
 
-    int processesCompleted = 0, currentTime = 0, cycle = 0, processesInReadyQueue, timeQuantum, m, d, g, s;
+    int processesCompleted = 0, currentTime = 0, cycle = 0, processesInReadyQueue, timeQuantum, numberOfContextSwitches = 0;
 
     vector<bool> alreadyInQueue(numberOfProcesses, false);
     vector<Process> tempProcesses = processes;
-    sort(tempProcesses.begin(), tempProcesses.end(), compareByArrival);
+    sort(tempProcesses.begin(), tempProcesses.end(), compareByBurst);
     currentTime = tempProcesses[0].getArrivalTime();
 
     queue<Process> readyQueue;
@@ -67,20 +76,6 @@ void ambrr_function(vector<Process> processes, int numberOfProcesses)
                 {
                     readyQueue.push(process);
                 }
-                m = findMedian(tempProcesses);
-                cout << "(Median) m: " << m << endl;
-                d = findDifference(tempProcesses);
-                cout << "(Difference b/w median and the largest burst time) d: " << d << endl;
-                if (m > d)
-                {
-                    g = m;
-                    s = d;
-                }
-                else
-                {
-                    g = d;
-                    s = m;
-                }
             }
 
             processesInReadyQueue = readyQueue.size();
@@ -99,14 +94,9 @@ void ambrr_function(vector<Process> processes, int numberOfProcesses)
                     processes[currentProcess.getId() - 1].setVisited();
                 }
 
-                if (cycle % 2 == 0)
-                {
-                    timeQuantum = g;
-                }
-                else
-                {
-                    timeQuantum = s;
-                }
+                //calculating time quantum-
+                timeQuantum = modulusTimeQuantum(processesInReadyQueue, tempProcesses);
+                numberOfContextSwitches++;
 
                 int usedQuanta = min(timeQuantum, currentProcess.getBurstTime());
                 currentTime += usedQuanta;
@@ -164,7 +154,7 @@ void ambrr_function(vector<Process> processes, int numberOfProcesses)
     averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
-    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime);
+    display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime, numberOfContextSwitches);
 }
 
 #endif

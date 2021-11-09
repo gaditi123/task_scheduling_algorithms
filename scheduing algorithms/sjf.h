@@ -1,6 +1,7 @@
 #ifndef SJF_H
 #define SJF_H
-#include "main.h"
+#include "./main.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -60,10 +61,10 @@ void sjf_function(vector<Process> processes, int numberOfProcesses)
 
 	averageWaitingTime = (float)averageWaitingTime / numberOfProcesses;
 	averageTurnAroundTime = (float)averageTurnAroundTime / numberOfProcesses;
-    averageResponseTime = (float)averageResponseTime / numberOfProcesses;
+	averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 	int numberOfContextSwitches = processes.size() - 1;
 
-	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime,numberOfContextSwitches);
+	display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime, numberOfContextSwitches);
 }
 
 #endif

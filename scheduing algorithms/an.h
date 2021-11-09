@@ -1,6 +1,7 @@
 #ifndef AN_H
 #define AN_H
-#include "main.h"
+#include "./main.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;

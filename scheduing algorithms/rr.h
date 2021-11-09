@@ -1,6 +1,7 @@
 #ifndef RR_H
 #define RR_H
-#include "main.h"
+#include "./main.h"
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuantum)
 {
 
-    cout<<"\n\t*** Round Robin ***\n";
+    cout << "\n\t*** Round Robin ***\n";
 
     int processesCompleted = 0, currentTime = 0;
 
@@ -28,7 +29,7 @@ void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuant
                 alreadyInQueue[processes[i].getId() - 1] = true;
             }
         }
-        
+
         if (!readyQueue.empty())
         {
             Process currentProcess = readyQueue.front();
@@ -96,10 +97,10 @@ void rr_function(vector<Process> processes, int numberOfProcesses, int timeQuant
     averageResponseTime = (float)averageResponseTime / numberOfProcesses;
 
     int totalBurstTime = 0, numberOfContextSwitches = 0;
-    for (int i = 0; i < numberOfProcesses;i++)
+    for (int i = 0; i < numberOfProcesses; i++)
         totalBurstTime += processes[i].burstTime;
     numberOfContextSwitches = ceil(totalBurstTime / timeQuantum) - 1;
-    
+
     display(processes, numberOfProcesses, averageWaitingTime, averageTurnAroundTime, averageResponseTime, numberOfContextSwitches);
 }
 

@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 #include <bits/stdc++.h>
+
 using namespace std;
 
 class Process
@@ -112,7 +113,10 @@ void display(vector<Process> processes, int numberOfProcesses, float averageWait
     cout << "\n\n\tAverage Waiting Time: " << averageWaitingTime;
     cout << "\n\tAverage Turn Around Time: " << averageTurnAroundTime;
     cout << "\n\tAverage Response Time: " << averageResponseTime;
-    cout << "\n\tNumber of Context Switches: " << numberOfContextSwitches;
+    if (numberOfContextSwitches != 0)
+    {
+        cout << "\n\tNumber of Context Switches: " << numberOfContextSwitches;
+    }
     cout << "\n\n";
 }
 
