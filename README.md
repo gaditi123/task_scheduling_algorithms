@@ -11,14 +11,14 @@ Harsh Agarwal [B19EE036]
 Techstack/ Language: C++
 
 Algorithms Implemented:
-1) First Come First Serve 
-2) Shortest Job First
-3) Shortest Job Remaining First
-4) Round Robin
-5) Alternating Median Based Round Robin
-6) AN Algorithm
-7) Improved Shortest Remaining Burst Time Round Robin
-8) Modulus Based Round Robin
+    1) First Come First Serve 
+    2) Shortest Job First
+    3) Shortest Job Remaining First
+    4) Round Robin
+    5) Alternating Median Based Round Robin
+    6) AN Algorithm
+    7) Improved Shortest Remaining Burst Time Round Robin
+    8) Modulus Based Round Robin
 
 
 2) Implementation of the paper: Task Scheduling Techniques for Deep Learning in Heterogeneous Environment
