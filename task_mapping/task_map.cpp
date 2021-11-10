@@ -138,9 +138,9 @@ int main()
  
     // Creating directed
     // weighted edges
-    v[0]->add_child(1, 0.5);
-    v[0]->add_child(3, 0.5);
-    v[0]->add_child(5, 0.5);
+    v[0]->add_child(1, 0);
+    v[0]->add_child(3, 0);
+    v[0]->add_child(5, 0);
     v[1]->add_child(2, 1);
     v[2]->add_child(7, 0);
     v[2]->add_child(9, 2);
@@ -166,11 +166,11 @@ int main()
     v[12]->add_child(15, 3);
     v[12]->add_child(17, 0);
     v[13]->add_child(14, 7);
-    v[14]->add_child(19, 0.5);
+    v[14]->add_child(19, 0);
     v[15]->add_child(16, 8);
-    v[16]->add_child(19, 0.5);
+    v[16]->add_child(19, 0);
     v[17]->add_child(18, 9);
-    v[18]->add_child(19, 0.5);
+    v[18]->add_child(19, 0);
     vector<int> path(v.size());
     vector<int> dist
         = dijkstraDist(v, s, path);
